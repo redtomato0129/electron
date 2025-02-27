@@ -39,18 +39,15 @@ async function createWindow() {
       preload: path.join(__dirname, 'preload.cjs'),
     },
     frame: false,
-    transparent: true, // Enable transparency for rounded corners
-    backgroundColor: '#00ffffff', // Transparent background
+    transparent: true,
+    backgroundColor: '#00000000', // Fully transparent background
     resizable: false,
     useContentSize: true,
     show: false,
-    roundedCorners: true, // Enable rounded corners
-    titleBarStyle: 'hidden', // Hide default title bar
-    vibrancy: 'window', // Add vibrancy effect (macOS only)
+    roundedCorners: true,
+    titleBarStyle: 'hidden',
+    hasShadow: true,
   });
-
-  // Set window background color after creation
-  mainWindow.setBackgroundColor('#ffffff');
 
   // Center the window
   mainWindow.center();

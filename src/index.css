@@ -9,7 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  border-radius: 32px;
+  background: transparent !important;
 }
 
 /* Add these styles to your existing CSS */
@@ -18,13 +18,14 @@ html, body, #root {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: transparent;
+  background: transparent !important;
 }
 
 #root {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent !important;
 }
 
 .app-drag {

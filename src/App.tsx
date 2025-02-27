@@ -66,14 +66,15 @@ function App() {
   return (
     <div 
       ref={containerRef} 
-      className={`bg-white overflow-hidden flex flex-col ${
+      className={`bg-white/95 backdrop-blur-sm overflow-hidden flex flex-col ${
         setupComplete ? 'h-[280px]' : 'h-[480px]'
       }`}
       style={{ 
         width: setupComplete ? '280px' : '320px',
         borderRadius: '32px',
-        border: '1px solid rgba(0, 0, 0, 0.1)',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
         boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+        WebkitBackdropFilter: 'blur(10px)',
       }}
     >
       <TitleBar />
