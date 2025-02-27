@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mic, MicOff, Settings } from 'lucide-react';
+import { Mic, Settings } from 'lucide-react';
 
 interface HeaderProps {
   isRecording: boolean;

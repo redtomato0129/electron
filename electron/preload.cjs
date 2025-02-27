@@ -38,7 +38,7 @@ contextBridge.exposeInMainWorld(
       getAudioDevices: () => ipcRenderer.invoke('get-audio-devices'),
     },
     
-    // Add notes functionality
+    // Add notes API
     notes: {
       openNotepad: (placeholder) => ipcRenderer.send('open-notepad', placeholder),
     },

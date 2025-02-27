@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { Minus, Square, X, Home } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 // Extend CSSProperties to include webkit app region
 interface ExtendedCSSProperties extends CSSProperties {

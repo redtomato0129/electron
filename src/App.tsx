@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import TitleBar from './components/TitleBar';
 import PermissionsSetup from './components/PermissionsSetup';
 import RecordingControls from './components/RecordingControls';
-import NotesPanel from './components/NotesPanel';
+
 
 // Add type for the resize function
 type ResizeFunction = (width: number, height: number) => void;

@@ -1,3 +1,7 @@
 // This is a placeholder for the tray icon
 // In a real implementation, you would need to create a proper PNG icon file
 // For now, we're just creating this file as a placeholder
+
+// Create a new file at project/assets/tray-icon.png
+// This should be a 16x16 or 32x32 PNG file with transparency
+// For now, you can use a simple placeholder icon or copy an existing icon file
