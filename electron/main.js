@@ -6,6 +6,8 @@ import { createAudioRecorder } from './audioRecorder.js';
 import { setupSecureStorage } from './secureStorage.js';
 import { setupApiClient } from './apiClient.js';
 import { bringToFront } from './platform.js';
+import { exec } from 'child_process';
+import { platform } from 'os';
 
 // Convert ESM meta URLs to file paths
 const __filename = fileURLToPath(import.meta.url);
@@ -250,6 +252,31 @@ function setupIpcHandlers() {
     if (mainWindow) {
       mainWindow.setSize(width, height);
       mainWindow.center();
+    }
+  });
+
+  // Add notepad handler
+  ipcMain.on('open-notepad', (event, placeholder) => {
+    const os = platform();
+    
+    switch (os) {
+      case 'win32':
+        // Windows - use Notepad
+        exec(`notepad`);
+        break;
+      
+      case 'darwin':
+        // macOS - use TextEdit
+        exec(`open -a TextEdit`);
+        break;
+      
+      case 'linux':
+        // Linux - try gedit, then fallback to nano
+        exec(`gedit || gnome-text-editor || xed || nano`);
+        break;
+      
+      default:
+        console.error('Unsupported operating system');
     }
   });
 }

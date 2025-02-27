@@ -20,6 +20,15 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
   onTakeScreenshot,
   onOpenSettings
 }) => {
+  const handleNotesClick = () => {
+    const placeholder = "Recording in progress. Click here to add notes";
+    const electron = window.electron;
+    if (electron?.notes) {
+      electron.notes.openNotepad(placeholder);
+    }
+    onOpenNotes();
+  };
+
   return (
     <div className="h-full p-4 flex flex-col">
       <div className="flex items-center justify-center mb-3 p-2">
@@ -63,7 +72,7 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
 
       <div className="flex justify-between items-center">
         <button
-          onClick={onOpenNotes}
+          onClick={handleNotesClick}
           className="flex flex-col items-center text-gray-500 hover:text-gray-700 p-2 rounded-lg hover:shadow-sm transition-all"
         >
           <PenLine className="h-4 w-4 mb-1" />
