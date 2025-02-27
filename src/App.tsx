@@ -18,12 +18,15 @@ function App() {
     let interval: number;
     if (isRecording) {
       const startTime = Date.now();
-      interval = window.setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const minutes = Math.floor(elapsed / 60000);
-        const seconds = Math.floor((elapsed % 60000) / 1000);
-        setDuration(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-      }, 1000);
+      interval = window.electron?.windowControls.resize as number;
+      if (interval) {
+        interval = window.setInterval(() => {
+          const elapsed = Date.now() - startTime;
+          const minutes = Math.floor(elapsed / 60000);
+          const seconds = Math.floor((elapsed % 60000) / 1000);
+          setDuration(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+        }, interval);
+      }
     }
     return () => clearInterval(interval);
   }, [isRecording]);
@@ -31,34 +34,19 @@ function App() {
   // Handle window resizing when content changes
   useEffect(() => {
     const updateWindowSize = () => {
-      if (!containerRef.current) return;
-      
-      // Get the content size
-      const rect = containerRef.current.getBoundingClientRect();
-      const width = 320; // Fixed width for the recording controls
-      const height = Math.ceil(rect.height);
-
-      // Type guard for the resize function
       const windowControls = window.electron?.windowControls;
       if (windowControls && 'resize' in windowControls) {
-        (windowControls.resize as ResizeFunction)(width, height);
+        const width = setupComplete ? 280 : 320;  // 280 for recording, 320 for permissions
+        const height = setupComplete ? 280 : 480; // 280 for recording, 480 for permissions
+        
+        setTimeout(() => {
+          (windowControls.resize as ResizeFunction)(width, height);
+        }, 0);
       }
     };
 
-    // Initial resize
     updateWindowSize();
-
-    // Add resize observer to handle dynamic content changes
-    const observer = new ResizeObserver(() => {
-      requestAnimationFrame(updateWindowSize);
-    });
-    
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [setupComplete, showNotes]);
+  }, [setupComplete]);
 
   const handleStartRecording = () => {
     setIsRecording(true);
@@ -68,25 +56,41 @@ function App() {
     setIsRecording(false);
   };
 
+  const handleHomeClick = () => {
+    setSetupComplete(false);
+    setIsRecording(false);
+    setDuration('00:00');
+    setShowNotes(false);
+  };
+
   return (
-    <div ref={containerRef} className="bg-white border border-gray-200 shadow-sm overflow-hidden">
+    <div 
+      ref={containerRef} 
+      className={`bg-white overflow-hidden flex flex-col ${
+        setupComplete ? 'h-[280px]' : 'h-[480px]'
+      }`}
+      style={{ 
+        width: setupComplete ? '280px' : '320px',
+        borderRadius: '32px',
+        border: '1px solid rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+      }}
+    >
       <TitleBar />
-      <div className="pt-8">
+      <div className="flex-1">
         {!setupComplete ? (
           <PermissionsSetup onComplete={() => setSetupComplete(true)} />
         ) : (
-          <div>
-            <RecordingControls
-              isRecording={isRecording}
-              duration={duration}
-              onStartRecording={handleStartRecording}
-              onStopRecording={handleStopRecording}
-              onOpenNotes={() => setShowNotes(true)}
-              onTakeScreenshot={() => {}}
-              onOpenSettings={() => {}}
-            />
-            {showNotes && <NotesPanel isRecording={isRecording} />}
-          </div>
+          <RecordingControls
+            isRecording={isRecording}
+            duration={duration}
+            onStartRecording={handleStartRecording}
+            onStopRecording={handleStopRecording}
+            onOpenNotes={() => setShowNotes(true)}
+            onTakeScreenshot={() => {}}
+            onOpenSettings={() => {}}
+            onHomeClick={handleHomeClick}
+          />
         )}
       </div>
     </div>

@@ -31,19 +31,26 @@ async function createWindow() {
 
   // Create the browser window with updated settings
   mainWindow = new BrowserWindow({
-    width: 320, // Starting width
-    height: 400, // Starting height
+    width: 320,  // Initial width for permissions page
+    height: 480, // Initial height for permissions page
     webPreferences: {
-      nodeIntegration: false,
+      nodeIntegration: true,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.cjs'),
     },
     frame: false,
-    transparent: false,
-    backgroundColor: '#ffffff',
-    resizable: false, // Prevent user resizing
+    transparent: true, // Enable transparency for rounded corners
+    backgroundColor: '#00ffffff', // Transparent background
+    resizable: false,
+    useContentSize: true,
     show: false,
+    roundedCorners: true, // Enable rounded corners
+    titleBarStyle: 'hidden', // Hide default title bar
+    vibrancy: 'window', // Add vibrancy effect (macOS only)
   });
+
+  // Set window background color after creation
+  mainWindow.setBackgroundColor('#ffffff');
 
   // Center the window
   mainWindow.center();
@@ -51,7 +58,8 @@ async function createWindow() {
   // Add listener for content size changes
   ipcMain.on('resize-window', (event, { width, height }) => {
     if (mainWindow) {
-      mainWindow.setSize(width, height);
+      mainWindow.setMinimumSize(width, height);
+      mainWindow.setSize(width, height, true);
       mainWindow.center();
     }
   });
@@ -241,6 +249,7 @@ function setupIpcHandlers() {
 
   // Add window resize handler
   ipcMain.on('resize-window', (event, { width, height }) => {
+    console.log('Resizing window to:', width, height);
     if (mainWindow) {
       mainWindow.setSize(width, height);
       mainWindow.center();

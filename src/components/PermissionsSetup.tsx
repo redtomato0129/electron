@@ -58,64 +58,76 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="bg-white p-6 h-[450px]">
+    <div className="p-6">
       <div className="space-y-6">
-        <div className="text-center mb-8">
+        <div className="text-center">
           <h1 className="text-xl font-semibold mb-2">Welcome to Voice Recorder</h1>
           <p className="text-gray-600">Enable permissions to get started</p>
         </div>
 
         <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-            <div className="flex items-center gap-3">
-              <Mic className="h-5 w-5" />
-              <span>Microphone</span>
+          <div className="bg-gray-50 rounded-2xl p-1">
+            <div className="flex items-center justify-between bg-gray-100 p-2 rounded-full">
+              <div className="flex items-center gap-3">
+                <Mic className="h-5 w-5" />
+                <span>Microphone</span>
+              </div>
+              <button
+                onClick={handleMicrophonePermission}
+                className={`px-4 py-1 rounded-full text-sm ${
+                  microphoneEnabled 
+                    ? 'bg-gray-200' 
+                    : 'bg-gray-200'
+                }`}
+              >
+                Done
+              </button>
             </div>
-            <button
-              onClick={handleMicrophonePermission}
-              className={`px-3 py-1 text-sm rounded-full ${
-                microphoneEnabled ? 'bg-gray-200' : 'bg-gray-200'
-              }`}
-            >
-              Done
-            </button>
           </div>
 
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-            <div className="flex items-center gap-3">
-              <MonitorDot className="h-5 w-5" />
-              <span>Accessibility</span>
+          <div className="bg-gray-50 rounded-2xl p-1">
+            <div className="flex items-center justify-between bg-gray-100 p-2 rounded-full">
+              <div className="flex items-center gap-3">
+                <MonitorDot className="h-5 w-5" />
+                <span>Accessibility</span>
+              </div>
+              <button
+                onClick={handleAccessibilityPermission}
+                className={`px-4 py-1 rounded-full text-sm ${
+                  accessibilityEnabled 
+                    ? 'bg-gray-200' 
+                    : 'bg-gray-200'
+                }`}
+              >
+                Done
+              </button>
             </div>
-            <button
-              onClick={handleAccessibilityPermission}
-              className={`px-3 py-1 text-sm rounded-full ${
-                accessibilityEnabled ? 'bg-gray-200' : 'bg-gray-200'
-              }`}
-            >
-              Done
-            </button>
           </div>
 
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-            <div className="flex items-center gap-3">
-              <MonitorUp className="h-5 w-5" />
-              <span>Screen recording</span>
+          <div className="bg-gray-50 rounded-2xl p-1">
+            <div className="flex items-center justify-between bg-gray-100 p-2 rounded-full">
+              <div className="flex items-center gap-3">
+                <MonitorUp className="h-5 w-5" />
+                <span>Screen recording</span>
+              </div>
+              <button
+                onClick={handleScreenRecordingPermission}
+                className={`px-4 py-1 rounded-full text-sm ${
+                  screenRecordingEnabled 
+                    ? 'bg-gray-200' 
+                    : 'bg-blue-600 text-white'
+                }`}
+              >
+                {screenRecordingEnabled ? 'Done' : 'Enable'}
+              </button>
             </div>
-            <button
-              onClick={handleScreenRecordingPermission}
-              className={`px-4 py-1 text-sm rounded-full ${
-                screenRecordingEnabled ? 'bg-gray-200' : 'bg-blue-600 text-white'
-              }`}
-            >
-              {screenRecordingEnabled ? 'Done' : 'Enable'}
-            </button>
           </div>
         </div>
 
         <button
           onClick={onComplete}
           disabled={!microphoneEnabled || !accessibilityEnabled || !screenRecordingEnabled}
-          className="w-full py-3 mt-6 bg-black text-white rounded-full disabled:opacity-50"
+          className="w-full py-3 bg-black text-white rounded-full disabled:opacity-50 mt-6"
         >
           Continue
         </button>

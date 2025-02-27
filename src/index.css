@@ -9,12 +9,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  border-radius: 32px;
 }
 
 /* Add these styles to your existing CSS */
 html, body, #root {
-  overflow: hidden;
   height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .app-drag {
@@ -26,5 +36,13 @@ html, body, #root {
 }
 
 button {
+  -webkit-app-region: no-drag;
+}
+
+.webkit-drag {
+  -webkit-app-region: drag;
+}
+
+.webkit-no-drag {
   -webkit-app-region: no-drag;
 }
