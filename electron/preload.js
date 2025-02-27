@@ -57,6 +57,11 @@ contextBridge.exposeInMainWorld(
     appInfo: {
       getVersion: () => ipcRenderer.invoke('get-app-version'),
     },
+    
+    systemPreferences: {
+      askForMediaAccess: (mediaType) => ipcRenderer.invoke('ask-for-media-access', mediaType),
+      getMediaAccessStatus: (mediaType) => ipcRenderer.invoke('get-media-access-status', mediaType),
+    },
   }
 );
 

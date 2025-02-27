@@ -5,6 +5,7 @@ import isDev from 'electron-is-dev';
 import { createAudioRecorder } from './audioRecorder.js';
 import { setupSecureStorage } from './secureStorage.js';
 import { setupApiClient } from './apiClient.js';
+import { bringToFront } from './platform.js';
 
 // Convert ESM meta URLs to file paths
 const __filename = fileURLToPath(import.meta.url);
@@ -75,6 +76,11 @@ async function createWindow() {
   // Add error event listener
   mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
     console.error('Failed to load:', errorCode, errorDescription);
+  });
+
+  // Add window focus handling
+  mainWindow.on('focus', () => {
+    bringToFront(mainWindow).catch(console.error);
   });
 }
 
@@ -159,6 +165,63 @@ function setupIpcHandlers() {
   // Audio devices
   ipcMain.handle('get-audio-devices', async () => {
     return await audioRecorder.getAudioDevices();
+  });
+
+  // System Preferences handlers
+  ipcMain.handle('ask-for-media-access', async (event, mediaType) => {
+    try {
+      switch (mediaType) {
+        case 'microphone':
+          return await systemPreferences.askForMediaAccess('microphone');
+        
+        case 'screen':
+          // On macOS, screen recording permission is handled differently
+          if (process.platform === 'darwin') {
+            return systemPreferences.getMediaAccessStatus('screen') === 'granted';
+          }
+          return true;
+        
+        case 'accessibility':
+          // On macOS, check accessibility permissions
+          if (process.platform === 'darwin') {
+            return systemPreferences.isTrusted('accessibility');
+          }
+          return true;
+        
+        default:
+          return false;
+      }
+    } catch (error) {
+      console.error(`Error requesting ${mediaType} access:`, error);
+      return false;
+    }
+  });
+
+  ipcMain.handle('get-media-access-status', async (event, mediaType) => {
+    try {
+      switch (mediaType) {
+        case 'microphone':
+          return systemPreferences.getMediaAccessStatus('microphone');
+        
+        case 'screen':
+          if (process.platform === 'darwin') {
+            return systemPreferences.getMediaAccessStatus('screen');
+          }
+          return 'granted';
+        
+        case 'accessibility':
+          if (process.platform === 'darwin') {
+            return systemPreferences.isTrusted('accessibility') ? 'granted' : 'denied';
+          }
+          return 'granted';
+        
+        default:
+          return 'denied';
+      }
+    } catch (error) {
+      console.error(`Error getting ${mediaType} access status:`, error);
+      return 'denied';
+    }
   });
 }
 

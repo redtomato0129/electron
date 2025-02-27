@@ -9,6 +9,11 @@ interface Window {
       close: () => void;
     };
     
+    systemPreferences: {
+      askForMediaAccess: (mediaType: string) => Promise<boolean>;
+      getMediaAccessStatus: (mediaType: string) => Promise<string>;
+    };
+    
     audioRecorder: {
       startRecording: (options: any) => void;
       stopRecording: () => void;
