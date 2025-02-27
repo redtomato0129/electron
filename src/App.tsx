@@ -37,7 +37,7 @@ function App() {
       const windowControls = window.electron?.windowControls;
       if (windowControls && 'resize' in windowControls) {
         const width = setupComplete ? 280 : 320;  // 280 for recording, 320 for permissions
-        const height = setupComplete ? 280 : 480; // 280 for recording, 480 for permissions
+        const height = setupComplete ? 280 : 450; // 280 for recording, 450 for permissions
         
         setTimeout(() => {
           (windowControls.resize as ResizeFunction)(width, height);
@@ -67,11 +67,12 @@ function App() {
     <div 
       ref={containerRef} 
       className={`bg-white/95 backdrop-blur-sm overflow-hidden flex flex-col ${
-        setupComplete ? 'h-[280px]' : 'h-[480px]'
+        setupComplete ? 'h-[280px]' : 'h-[450px]'
       }`}
       style={{ 
         width: setupComplete ? '280px' : '320px',
-        borderRadius: '32px',
+        borderRadius: '24px',
+        background: 'rgba(255, 255, 255, 1)',
         border: '1px solid rgba(255, 255, 255, 0.2)',
         boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
         WebkitBackdropFilter: 'blur(10px)',

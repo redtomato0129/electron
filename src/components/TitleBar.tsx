@@ -16,19 +16,20 @@ const TitleBar: React.FC = () => {
   };
 
   return (
-    <div className="h-8 flex justify-end items-center px-3 select-none webkit-drag">
-      <div className="flex gap-2 webkit-no-drag">
+    <div className="h-8 flex justify-between items-center px-2 app-drag">
+      <div className="text-sm font-medium text-gray-600"></div>
+      <div className="flex space-x-2">
         <button
           onClick={handleMinimize}
-          className="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center"
+          className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-gray-200"
         >
-          <Minus className="w-2 h-2 text-gray-600" />
+          <Minus className="h-4 w-4 text-gray-600" />
         </button>
         <button
           onClick={handleClose}
-          className="w-3 h-3 rounded-full bg-gray-300 hover:bg-red-500 flex items-center justify-center"
+          className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-red-500 hover:text-white"
         >
-          <X className="w-2 h-2 text-gray-600" />
+          <X className="h-4 w-4" />
         </button>
       </div>
     </div>

@@ -66,7 +66,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
         </div>
 
         <div className="space-y-4">
-          <div className="bg-gray-50 rounded-2xl p-1">
+          <div className="rounded-2xl p-1">
             <div className="flex items-center justify-between bg-gray-100 p-2 rounded-full">
               <div className="flex items-center gap-3">
                 <Mic className="h-5 w-5" />
@@ -85,7 +85,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-2xl p-1">
+          <div className=" rounded-2xl p-1">
             <div className="flex items-center justify-between bg-gray-100 p-2 rounded-full">
               <div className="flex items-center gap-3">
                 <MonitorDot className="h-5 w-5" />
@@ -104,7 +104,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
             </div>
           </div>
 
-          <div className="bg-gray-50 rounded-2xl p-1">
+          <div className="rounded-2xl p-1">
             <div className="flex items-center justify-between bg-gray-100 p-2 rounded-full">
               <div className="flex items-center gap-3">
                 <MonitorUp className="h-5 w-5" />

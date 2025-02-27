@@ -32,7 +32,7 @@ async function createWindow() {
   // Create the browser window with updated settings
   mainWindow = new BrowserWindow({
     width: 320,  // Initial width for permissions page
-    height: 480, // Initial height for permissions page
+    height: 450, // Initial height for permissions page
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
