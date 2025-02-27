@@ -16,7 +16,7 @@ const TitleBar: React.FC = () => {
   };
 
   return (
-    <div className="h-8 flex justify-between items-center px-2 app-drag">
+    <div className="h-8 flex justify-between items-center px-2 app-drag" style={{paddingTop: '10px', paddingRight: '10px'}}>
       <div className="text-sm font-medium text-gray-600"></div>
       <div className="flex space-x-2">
         <button

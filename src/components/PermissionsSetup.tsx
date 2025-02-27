@@ -65,7 +65,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
           <p className="text-gray-600">Enable permissions to get started</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-1">
           <div className="rounded-2xl p-1">
             <div className="flex items-center justify-between bg-gray-100 p-2 rounded-full">
               <div className="flex items-center gap-3">
@@ -74,7 +74,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
               </div>
               <button
                 onClick={handleMicrophonePermission}
-                className={`px-4 py-1 rounded-full text-sm ${
+                className={`px-4 py-1 rounded-full text-sm shadow-sm hover:shadow transition-all ${
                   microphoneEnabled 
                     ? 'bg-gray-200' 
                     : 'bg-gray-200'
@@ -85,7 +85,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
             </div>
           </div>
 
-          <div className=" rounded-2xl p-1">
+          <div className="rounded-2xl p-1">
             <div className="flex items-center justify-between bg-gray-100 p-2 rounded-full">
               <div className="flex items-center gap-3">
                 <MonitorDot className="h-5 w-5" />
@@ -93,7 +93,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
               </div>
               <button
                 onClick={handleAccessibilityPermission}
-                className={`px-4 py-1 rounded-full text-sm ${
+                className={`px-4 py-1 rounded-full text-sm shadow-sm hover:shadow transition-all ${
                   accessibilityEnabled 
                     ? 'bg-gray-200' 
                     : 'bg-gray-200'
@@ -112,7 +112,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
               </div>
               <button
                 onClick={handleScreenRecordingPermission}
-                className={`px-4 py-1 rounded-full text-sm ${
+                className={`px-4 py-1 rounded-full text-sm shadow-sm hover:shadow transition-all ${
                   screenRecordingEnabled 
                     ? 'bg-gray-200' 
                     : 'bg-blue-600 text-white'
@@ -127,7 +127,7 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
         <button
           onClick={onComplete}
           disabled={!microphoneEnabled || !accessibilityEnabled || !screenRecordingEnabled}
-          className="w-full py-3 bg-black text-white rounded-full disabled:opacity-50 mt-6"
+          className="w-full py-3 bg-black text-white rounded-full shadow-md hover:shadow-lg disabled:opacity-50 disabled:shadow-none transition-all mt-6"
         >
           Continue
         </button>

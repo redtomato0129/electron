@@ -10,7 +10,7 @@ const NotesPanel: React.FC<NotesPanelProps> = ({ isRecording }) => {
     <div className="bg-white rounded-lg border border-gray-200 p-3 h-[200px]">
       <div className="flex justify-between items-center mb-3">
         <h2 className="text-sm font-medium">Add notes</h2>
-        <button className="text-gray-500 hover:text-gray-700">
+        <button className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:shadow-sm transition-all">
           <MoreHorizontal className="h-4 w-4" />
         </button>
       </div>
@@ -19,7 +19,7 @@ const NotesPanel: React.FC<NotesPanelProps> = ({ isRecording }) => {
         {isRecording ? 'Recording in progress. Click here to add notes' : 'Start recording to add notes'}
       </div>
 
-      <button className="absolute bottom-4 right-4 bg-gray-100 rounded-full p-2">
+      <button className="absolute bottom-4 right-4 bg-gray-100 rounded-full p-2 shadow-md hover:shadow-lg transition-all">
         <span className="text-xl">+</span>
       </button>
     </div>

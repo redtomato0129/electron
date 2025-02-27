@@ -18,15 +18,12 @@ function App() {
     let interval: number;
     if (isRecording) {
       const startTime = Date.now();
-      interval = window.electron?.windowControls.resize as number;
-      if (interval) {
-        interval = window.setInterval(() => {
-          const elapsed = Date.now() - startTime;
-          const minutes = Math.floor(elapsed / 60000);
-          const seconds = Math.floor((elapsed % 60000) / 1000);
-          setDuration(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-        }, interval);
-      }
+      interval = window.setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const minutes = Math.floor(elapsed / 60000);
+        const seconds = Math.floor((elapsed % 60000) / 1000);
+        setDuration(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
+      }, 1000);
     }
     return () => clearInterval(interval);
   }, [isRecording]);
@@ -37,7 +34,7 @@ function App() {
       const windowControls = window.electron?.windowControls;
       if (windowControls && 'resize' in windowControls) {
         const width = setupComplete ? 280 : 320;  // 280 for recording, 320 for permissions
-        const height = setupComplete ? 280 : 450; // 280 for recording, 450 for permissions
+        const height = setupComplete ? (isRecording ? 320 : 280) : 450; // 300 when recording, 280 when not, 450 for permissions
         
         setTimeout(() => {
           (windowControls.resize as ResizeFunction)(width, height);
@@ -46,7 +43,7 @@ function App() {
     };
 
     updateWindowSize();
-  }, [setupComplete]);
+  }, [setupComplete, isRecording]);
 
   const handleStartRecording = () => {
     setIsRecording(true);
@@ -67,7 +64,7 @@ function App() {
     <div 
       ref={containerRef} 
       className={`bg-white/95 backdrop-blur-sm overflow-hidden flex flex-col ${
-        setupComplete ? 'h-[280px]' : 'h-[450px]'
+        setupComplete ? (isRecording ? 'h-[320px]' : 'h-[280px]') : 'h-[450px]'
       }`}
       style={{ 
         width: setupComplete ? '280px' : '320px',
