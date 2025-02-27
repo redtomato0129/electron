@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mic, Settings, PenLine, Camera, Home, X, Pause } from 'lucide-react';
+import { Mic, Settings, PenLine, Camera, Pause } from 'lucide-react';
 
 interface RecordingControlsProps {
   isRecording: boolean;
@@ -9,7 +9,6 @@ interface RecordingControlsProps {
   onOpenNotes: () => void;
   onTakeScreenshot: () => void;
   onOpenSettings: () => void;
-  onHomeClick: () => void;
 }
 
 const RecordingControls: React.FC<RecordingControlsProps> = ({
@@ -19,25 +18,15 @@ const RecordingControls: React.FC<RecordingControlsProps> = ({
   onStopRecording,
   onOpenNotes,
   onTakeScreenshot,
-  onOpenSettings,
-  onHomeClick
+  onOpenSettings
 }) => {
   return (
     <div className="h-full p-4 flex flex-col">
-      <div className="flex items-center justify-between mb-3">
-        <div className="text-gray-500">
-          
-        </div>
+      <div className="flex items-center justify-center mb-3 p-2">
         <div className="flex gap-1 bg-gray-100 p-1 rounded-full shadow-sm">
           <button className="px-3 py-1 bg-white rounded-full text-sm shadow-sm hover:shadow transition-all">Meeting</button>
           <button className="px-3 py-1 text-sm text-gray-500 hover:bg-white hover:shadow rounded-full transition-all">Note</button>
         </div>
-        <button 
-          onClick={onHomeClick}
-          className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:shadow-sm transition-all"
-        >
-          <Home className="h-4 w-4" />
-        </button>
       </div>
 
       <div className="flex items-center gap-2 bg-blue-50 rounded-lg p-2 mb-4">
