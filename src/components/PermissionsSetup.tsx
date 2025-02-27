@@ -58,10 +58,10 @@ const PermissionsSetup: React.FC<PermissionsSetupProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-white flex items-center justify-center">
-      <div className="w-full max-w-md p-6 space-y-6">
+    <div className="bg-white p-6 h-[450px]">
+      <div className="space-y-6">
         <div className="text-center mb-8">
-          <h1 className="text-xl font-semibold mb-2">Welcome to "App name"</h1>
+          <h1 className="text-xl font-semibold mb-2">Welcome to Voice Recorder</h1>
           <p className="text-gray-600">Enable permissions to get started</p>
         </div>
 

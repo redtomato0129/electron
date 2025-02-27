@@ -10,3 +10,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Add these styles to your existing CSS */
+html, body, #root {
+  overflow: hidden;
+  height: 100%;
+}
+
+.app-drag {
+  -webkit-app-region: drag;
+}
+
+.app-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+button {
+  -webkit-app-region: no-drag;
+}

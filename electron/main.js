@@ -29,16 +29,31 @@ async function createWindow() {
     }
   }
 
-  // Create the browser window with memory optimization settings
+  // Create the browser window with updated settings
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 320, // Starting width
+    height: 400, // Starting height
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
-    show: false, // Don't show the window until it's ready
+    frame: false,
+    transparent: false,
+    backgroundColor: '#ffffff',
+    resizable: false, // Prevent user resizing
+    show: false,
+  });
+
+  // Center the window
+  mainWindow.center();
+
+  // Add listener for content size changes
+  ipcMain.on('resize-window', (event, { width, height }) => {
+    if (mainWindow) {
+      mainWindow.setSize(width, height);
+      mainWindow.center();
+    }
   });
 
   // Load the app
@@ -221,6 +236,14 @@ function setupIpcHandlers() {
     } catch (error) {
       console.error(`Error getting ${mediaType} access status:`, error);
       return 'denied';
+    }
+  });
+
+  // Add window resize handler
+  ipcMain.on('resize-window', (event, { width, height }) => {
+    if (mainWindow) {
+      mainWindow.setSize(width, height);
+      mainWindow.center();
     }
   });
 }

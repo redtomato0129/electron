@@ -10,6 +10,7 @@ contextBridge.exposeInMainWorld(
       minimize: () => ipcRenderer.send('window-minimize'),
       maximize: () => ipcRenderer.send('window-maximize'),
       close: () => ipcRenderer.send('window-close'),
+      resize: (width, height) => ipcRenderer.send('resize-window', { width, height }),
     },
     
     // Audio recording
